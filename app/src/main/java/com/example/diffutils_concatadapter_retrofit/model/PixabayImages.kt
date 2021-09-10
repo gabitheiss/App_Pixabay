@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class PixabayImages(
 
-    @SerializedName("hits") val hist : List<Image>
+    @SerializedName("hits") val hits : List<Image>
 )
 
 data class Image(
