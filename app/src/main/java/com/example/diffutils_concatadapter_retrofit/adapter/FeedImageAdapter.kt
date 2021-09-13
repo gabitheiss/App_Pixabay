@@ -39,7 +39,8 @@ class FeedImageAdapter : ListAdapter<Image, RecyclerView.ViewHolder>(ImagesDiffC
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position %  2 == 1) ADS_VIEW else NORMAL_VIEW
+        //a cada 2 fotos mostra 1 anuncio (resto divisão)
+        return if (position % 3 == 1) ADS_VIEW else NORMAL_VIEW
     }
 
 }
