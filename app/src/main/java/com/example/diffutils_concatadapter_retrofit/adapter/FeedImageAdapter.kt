@@ -10,18 +10,36 @@ import com.example.diffutils_concatadapter_retrofit.R
 import com.example.diffutils_concatadapter_retrofit.databinding.ItensImageListBinding
 import com.example.diffutils_concatadapter_retrofit.model.Image
 
-class FeedImageAdapter : ListAdapter<Image, FeedViewHolder>(ImagesDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
-        LayoutInflater.from(parent.context).inflate(R.layout.itens_image_list, parent, false).apply {
+const val NORMAL_VIEW = 0
+const val ADS_VIEW = 1
+
+class FeedImageAdapter : ListAdapter<Image, RecyclerView.ViewHolder>(ImagesDiffCallback()) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if(viewType == ADS_VIEW){
+            LayoutInflater.from(parent.context).inflate(R.layout.ads_item,parent,false).apply {
+                return AdsViewHolder(this)
+            }
+        }
+        LayoutInflater.from(parent.context).inflate(R.layout.itens_image_list,parent,false).apply {
             return FeedViewHolder(this)
         }
     }
 
-    override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        getItem(position).let { image ->
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) == NORMAL_VIEW){
+            holder as FeedViewHolder
+            getItem(position).let {image ->
             holder.bind(image)
+            }
+        }else{
+            holder as AdsViewHolder
         }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position %  2 == 1) ADS_VIEW else NORMAL_VIEW
     }
 
 }

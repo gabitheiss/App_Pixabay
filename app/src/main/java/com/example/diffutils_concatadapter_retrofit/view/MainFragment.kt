@@ -57,6 +57,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 hideSoftInput()
             }
         })
+        viewModel.fetchImages()
+
     }
 
     fun View.hideSoftInput() {
